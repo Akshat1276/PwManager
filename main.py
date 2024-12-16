@@ -1,3 +1,4 @@
+import os #will allow user to interact with the operating system
 from manager import PasswordManager
 import pyperclip
 import sys
@@ -39,7 +40,8 @@ def validate_key_loaded(pm : PasswordManager):
         print("Key not loaded. Please load a key first.")
         return False
     return True
-
+def clear_screen(): #Defining the clear screen function to clear the CLI.
+    os.system('cls' if os.name == 'nt' else 'clear') #'cls' is used to clear the terminal screen in windows, for Linux, MacOS etc. 'clear' is used
 def main():
     password = {
         "gmail": "password1",
@@ -49,7 +51,7 @@ def main():
     
     pm = PasswordManager()
 
-    print("""What would you like to do?
+    menu = """What would you like to do?
           1. Create a new key
           2. Load an existing key
           3. Create a new password file
@@ -57,8 +59,11 @@ def main():
           5. Add a password
           6. Get a password
           7. List all sites
+          c. Clear Screen
           q. Quit
-          """)
+          """
+
+    print(menu)
     
     done = False
     while not done:
@@ -104,6 +109,10 @@ def main():
             print("Saved Sites:")
             for site in pm.password_dict:
                 print(site)
+        elif choice == 'c': #CHECK CONDITION AND CLEAR THE CLI
+            clear_screen()
+            print(menu)
+            print("Cleared the screen.")
         elif choice == 'q':
             done = True
             print("Goodbye!")
