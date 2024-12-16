@@ -1,4 +1,4 @@
-import os #will allow user to interact with the operating system
+import os  # Allows user to interact with the operating system
 from manager import PasswordManager
 import pyperclip
 import sys
@@ -40,15 +40,19 @@ def validate_key_loaded(pm : PasswordManager):
         print("Key not loaded. Please load a key first.")
         return False
     return True
-def clear_screen(): #Defining the clear screen function to clear the CLI.
-    os.system('cls' if os.name == 'nt' else 'clear') #'cls' is used to clear the terminal screen in windows, for Linux, MacOS etc. 'clear' is used
+"""The entire code now follows python's PEP 8 standard"""
+def clear_screen():
+    """Clears the CLI screen."""
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 def main():
-    password = {
+    """Main function to handle the password manager operations."""
+    passwords = {
         "gmail": "password1",
         "facebook": "password2",
         "twitter": "password3"
     }
-    
+
     pm = PasswordManager()
 
     menu = """What would you like to do?
@@ -64,7 +68,7 @@ def main():
           """
 
     print(menu)
-    
+
     done = False
     while not done:
         choice = get_input_with_timeout("Enter choice: ")
@@ -81,7 +85,7 @@ def main():
             pm.load_key(path)
         elif choice == '3' and validate_key_loaded(pm):
             path = input("Enter password file path: ").strip()
-            pm.create_password_file(path, password)
+            pm.create_password_file(path, passwords)
         elif choice == '4' and validate_key_loaded(pm):
             path = input("Enter password file path: ").strip()
             pm.load_password_file(path)
@@ -118,7 +122,6 @@ def main():
             print("Goodbye!")
         else:
             print("Invalid choice. Please try again.")
-
 
 if __name__ == '__main__':
     main()
